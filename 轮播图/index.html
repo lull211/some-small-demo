@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轮播图</title>
+    <style>
+      div,
+      ul,
+      li,
+      span {
+        margin: 0px;
+        padding: 0px;
+      }
+      li {
+        list-style: none;
+      }
+      #wrapper {
+        position: relative;
+        width: 1000px;
+        height: 600px;
+        margin: 100px auto 0px;
+        border: 5px solid #000;
+        overflow: hidden;
+      }
+      #wrapper .silderPage {
+        position: absolute;
+        width: 5000px;
+        height: 100%;
+        left: 0px;
+        top: 0px;
+      }
+      #wrapper ul li {
+        float: left;
+      }
+
+      #wrapper ul li img {
+        display: inline-block;
+
+        width: 1000px;
+        height: 600px;
+      }
+      .btn {
+        position: absolute;
+        top: 50%;
+        width: 40px;
+        height: 60px;
+        margin-top: -30px;
+        text-align: center;
+        line-height: 60px;
+        background-color: #ccc;
+        opacity: 0.2;
+        cursor: pointer;
+      }
+      .leftBtn {
+        left: 0px;
+        border-radius: 0 30px 30px 0;
+      }
+      .rightBtn {
+        right: 0px;
+        border-radius: 30px 0 0 30px;
+      }
+      .leftBtn:hover {
+        opacity: 1;
+      }
+      .rightBtn:hover {
+        opacity: 1;
+      }
+      .silderIndex {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        height: 10px;
+        text-align: center;
+        line-height: 8px;
+      }
+      .silderIndex span {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 6px;
+        background-color: #ccc;
+        cursor: pointer;
+      }
+      .silderIndex .active {
+        background-color: orangered;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <ul class="silderPage">
+        <li><img src="./image2/1.jpg" alt="" /></li>
+        <li><img src="./image2/2.jpg" alt="" /></li>
+        <li><img src="./image2/3.jpg" alt="" /></li>
+        <li><img src="./image2/4.jpg" alt="" /></li>
+        <li><img src="./image2/1.jpg" alt="" /></li>
+      </ul>
+      <div class="btn leftBtn">&lt;</div>
+      <div class="btn rightBtn">&gt;</div>
+      <div class="silderIndex">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <script src="./js/startMove.js"></script>
+    <script src="./js/getStyle.js"></script>
+    <script>
+      var timer = null;
+      var lock = true;
+      var oDom = document.getElementsByClassName("silderPage")[0];
+      // var oDom = oUl.children[0];
+      // console.log(oDom);
+      var moveWidth = oDom.children[0].offsetWidth;
+      var num = oDom.children.length - 1;
+      var leftBtn = document.getElementsByClassName("leftBtn")[0];
+      var rightBtn = document.getElementsByClassName("rightBtn")[0];
+      var index = 0;
+      var oSpanArray = document
+        .getElementsByClassName("silderIndex")[0]
+        .getElementsByTagName("span");
+      leftBtn.onclick = function () {
+        autoMove("left");
+      };
+      rightBtn.onclick = function () {
+        autoMove("right");
+      };
+
+      //改变索引，通过索引点击转换图片
+      function changeIndex(_index) {
+        for (let i = 0; i < oSpanArray.length; i++) {
+          oSpanArray[i].className = "";
+        }
+        oSpanArray[_index].className = "active";
+      }
+      for (let i = 0; i < oSpanArray.length; i++) {
+        (function (myIndex) {
+          oSpanArray[i].onclick = function () {
+            lock = false;
+            clearTimeout(timer);
+            index = myIndex;
+            changeIndex(index);
+            startMove(oDom, { left: -index * moveWidth }, function () {
+              lock = true;
+              timer = setTimeout(autoMove, 1500);
+            });
+          };
+        })(i);
+      }
+
+      //direction
+      //默认轮播方向：'left->right'  /undefined
+      //点击left 方向按钮： 'right<-left'  /ture
+
+      //自动轮播
+      function autoMove(direction) {
+        if (lock) {
+          //加锁，锁住运动
+          lock = false;
+          clearTimeout(timer);
+          if (!direction || direction == "right") {
+            index++;
+            // changeIndex(index); 这里的changeIndex(index)问题！
+            //开始运动
+            startMove(oDom, { left: oDom.offsetLeft - moveWidth }, function () {
+              if (oDom.offsetLeft == -num * moveWidth) {
+                oDom.style.left = 0 ;
+                index = 0;
+                console.log(index);
+              }
+              changeIndex(index);
+              timer = setTimeout(autoMove, 1500); //自动播放间隔1500毫秒
+              lock = true;
+              // autoMove();
+            });
+          }
+
+          //
+          else if (direction == "left") {
+            if (oDom.offsetLeft == 0) {
+              oDom.style.left = -num * moveWidth + "px";
+              index = num;
+              console.log(index);
+            }
+            index--;
+             changeIndex(index);
+            startMove(oDom, { left: oDom.offsetLeft + moveWidth }, function () {
+              // changeIndex(index);
+              timer = setTimeout(autoMove, 1500);
+              lock = true;
+            });
+          }
+        }
+      }
+      timer = setTimeout(autoMove, 1500); //延迟1500毫秒执行一次
+      //通过定时器去调用autoMove direction 是没有地，所以为undefined，所以可以轮播；
+    </script>
+  </body>
+</html>

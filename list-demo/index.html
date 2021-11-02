@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="filterFunc">
+        <input  class="search" type="text"  value=""/>
+        <span class="btn"sex ="m">Male</span>
+        <span class="btn "sex ="f">Female</span>
+        <span class="btn active" sex ="a">All</span>
+      </div>
+      <div class="friendList">
+        <ul>
+          <li>
+            <img src="./img/1.png" />
+            <p class="name">王刚</p>
+            <p class="des">颈椎不好</p>
+          </li>
+          <li>
+            <img src="./img/2.png" />
+            <p class="name"></p>
+            <p class="des"></p>
+          </li>
+          <li>
+            <img src="./img/3.png" />
+            <p class="name"></p>
+            <p class="des"></p>
+          </li>
+          <li>
+            <img src="./img/4.png" />
+            <p class="name"></p>
+            <p class="des"></p>
+          </li>
+          <li>
+            <img src="./img/5.png" alt="" />
+            <p class="name"></p>
+            <p class="des"></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+      <script src="./js/filterArrByText.js"></script>
+      <script src="./js/filterArrBySex.js"></script>
+       <script src="./js/lastFilter.js"></script>
+       <script src="./js/createStore.js"></script>
+    <script src="./js/index.js"></script>
+
+   <!-- 要把JS文件要用的函数文件放在上面去引入 -->
+
+  </body>
+</html>

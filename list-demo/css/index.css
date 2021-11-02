@@ -1,0 +1,65 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style: none;
+}
+.wrapper {
+  padding: 10px 15px;
+  width: 400px;
+  margin: 100px auto 0px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+/* filterFunc  */
+.wrapper .filterFunc {
+  margin-bottom: 20px;
+  height: 27px;
+}
+.wrapper .filterFunc input {
+  width: 230px;
+  height: 25px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  outline: none;
+  padding-left: 10px;
+}
+.wrapper .filterFunc .btn {
+  margin-top: 1px;
+  padding: 1px 5px 3px;
+  border-radius: 4px;
+  color: #3c8dff;
+  
+  cursor: pointer;
+}
+  /* .wrapper .filterFunc .btn:hover {
+    background-color: #3c8dff;
+    color: #fff;
+  } */
+.wrapper .filterFunc .active {
+  background: #3c8dff;
+  color: #fff;
+}
+
+/* friendList */
+.wrapper .friendList ul li {
+  height: 40px;
+  position: relative;
+  border-bottom: 1px solid #999;
+  padding: 10px 0;
+}
+
+.wrapper .friendList ul li img {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+.wrapper .friendList ul li p {
+  padding-left: 48px;
+  padding-bottom: 5px;
+}
+.wrapper .friendList ul li .des {
+  font-size: 12px;
+  color: #666;
+}
